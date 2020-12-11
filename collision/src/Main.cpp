@@ -51,11 +51,8 @@ int main()
 	p2.setPosition(400.f, 100.f);
 	p2.setRotation(90.f);
 
-	// sf::Texture shapeTexture;
-	// shapeTexture.loadFromFile("content/sfml.png");
-	// shape.setTexture(&shapeTexture);
-
 	sf::Event event;
+	window.setFramerateLimit(60);
 
 	while (window.isOpen())
 	{
@@ -64,6 +61,15 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			p1.move(-1.f, 0.f);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			p1.move(0.f, -1.f);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			p1.move(0.f, 1.f);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			p1.move(1.f, 0.f);
 
 		window.clear();
 		window.draw(p1);
