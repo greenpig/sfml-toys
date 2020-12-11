@@ -5,6 +5,7 @@ class Player : public sf::Drawable, public sf::Transformable
 private:
 	sf::CircleShape body;
 	sf::RectangleShape sword;
+	const float PI = 3.141592654f;
 
 public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -18,6 +19,24 @@ public:
 	{
 		body.setFillColor(color);
 		sword.setFillColor(color);
+	}
+
+	void handleKey(sf::Keyboard::Key forward, sf::Keyboard::Key back, sf::Keyboard::Key left, sf::Keyboard::Key right)
+	{
+		if (sf::Keyboard::isKeyPressed(left))
+			rotate(-5.f);
+		if (sf::Keyboard::isKeyPressed(right))
+			rotate(5.f);
+		if (sf::Keyboard::isKeyPressed(forward))
+		{
+			float r = getRotation() / 180 * PI;
+			move(sin(r), -cos(r));
+		}
+		if (sf::Keyboard::isKeyPressed(back))
+		{
+			float r = getRotation() / 180 * PI;
+			move(-sin(r), cos(r));
+		}
 	}
 
 	Player()
@@ -62,14 +81,8 @@ int main()
 				window.close();
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			p1.move(-1.f, 0.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			p1.move(0.f, -1.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			p1.move(0.f, 1.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			p1.move(1.f, 0.f);
+		p1.handleKey(sf::Keyboard::W, sf::Keyboard::S, sf::Keyboard::A, sf::Keyboard::D);
+		p2.handleKey(sf::Keyboard::I, sf::Keyboard::K, sf::Keyboard::J, sf::Keyboard::L);
 
 		window.clear();
 		window.draw(p1);
