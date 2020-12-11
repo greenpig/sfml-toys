@@ -51,11 +51,11 @@ public:
 	{
 		// Our body: a circle at getPosition().x, getPosition().y, with radius R (10)
 		// The sword: start: x2 + R * sin(r2), y2 - R * cos(r2)
-		//            tip:   x2 + (L+R) * sin(r2), y2 - (L+R) * sin(r2)
+		//            tip:   x2 + (L+R) * sin(r2), y2 - (L+R) * cos(r2)
 		float x = getPosition().x;
 		float y = getPosition().y;
 
-		float r2 = attacker.getRotation() / 180 * PI;
+		float r2 = attacker.getRotation() / 180 * PI; // convert degree to radian
 		float xt = attacker.getPosition().x + (L + R) * sin(r2);
 		float yt = attacker.getPosition().y - (L + R) * cos(r2);
 
@@ -89,7 +89,7 @@ int main()
 	// in Windows at least, this must be called before creating the window
 	float screenScalingFactor = platform.getScreenScalingFactor(window.getSystemHandle());
 	// Use the screenScalingFactor
-	window.create(sf::VideoMode(600.0f * screenScalingFactor, 600.0f * screenScalingFactor), "SFML works!");
+	window.create(sf::VideoMode(600.0f * screenScalingFactor, 600.0f * screenScalingFactor), "Let's fight!");
 	platform.setIcon(window.getSystemHandle());
 
 	Player p1, p2;
